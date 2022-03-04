@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { changePassword } from "../../lib/api";
+import { useSelector } from "react-redux";
 import useHttp from "../../hooks/use-http";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import classes from "./ProfileForm.module.css";
@@ -9,6 +10,7 @@ const ProfileForm = () => {
   const newPwdRef = useRef();
   const navigate = useNavigate();
   const { isLoading, error, callApi } = useHttp();
+  const token = useSelector((state) => state.auth.token);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -16,7 +18,7 @@ const ProfileForm = () => {
     const password = newPwdRef.current.value;
 
     // Validazione
-    callApi(changePassword.bind(null, password)).then((response) => {
+    callApi(changePassword.bind(null, token, password)).then((response) => {
       if (!error) {
         navigate("/", { replace: true });
       }

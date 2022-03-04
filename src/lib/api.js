@@ -75,13 +75,13 @@ export const signUp = async (email, password) => {
  * @param {string} password
  * @returns
  */
-export const changePassword = async (token, password) => {
-  const { url, config } = buildDefaultRequest("accounts:signUp");
+export const changePassword = async (idToken, password) => {
+  const { url, config } = buildDefaultRequest("accounts:update");
 
   const response = await axios.post(
     url,
     {
-      token,
+      idToken,
       password,
       returnSecureToken: false,
     },
