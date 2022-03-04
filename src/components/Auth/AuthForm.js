@@ -28,8 +28,7 @@ const AuthForm = () => {
 
     if (isLogin) {
       callApi(signIn.bind(null, email, pwd)).then((response) => {
-        if (!error) {
-          console.log(response);
+        if (response) {
           dispatch(
             authActions.login({
               token: response.idToken,
@@ -41,7 +40,7 @@ const AuthForm = () => {
       });
     } else {
       callApi(signUp.bind(null, email, pwd)).then((response) => {
-        if (!error) {
+        if (response) {
           setIsLogin(true);
           navigate("/auth", { replace: true });
         }
