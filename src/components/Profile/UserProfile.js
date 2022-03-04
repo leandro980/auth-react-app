@@ -1,11 +1,11 @@
-import ProfileForm from './ProfileForm';
-import classes from './UserProfile.module.css';
+import ProfileForm from "./ProfileForm";
+import classes from "./UserProfile.module.css";
 
-const UserProfile = () => {
+const UserProfile = (props) => {
   return (
     <section className={classes.profile}>
       <h1>Your User Profile</h1>
-      <ProfileForm />
+      <ProfileForm errorHandler={props.errorHandler} />
     </section>
   );
 };

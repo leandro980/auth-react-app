@@ -6,7 +6,7 @@ import useHttp from "../../hooks/use-http";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import classes from "./ProfileForm.module.css";
 
-const ProfileForm = () => {
+const ProfileForm = (props) => {
   const newPwdRef = useRef();
   const navigate = useNavigate();
   const { isLoading, error, callApi } = useHttp();
@@ -21,29 +21,28 @@ const ProfileForm = () => {
     callApi(changePassword.bind(null, token, password)).then((response) => {
       if (response) {
         navigate("/", { replace: true });
+      } else {
+        props.errorHandler(error);
       }
     });
   };
 
   return (
-    <Fragment>
-      <form className={classes.form} onSubmit={submitHandler}>
-        {error && <div className="error">{error}</div>}
-        <div className={classes.control}>
-          <label htmlFor="new-password">New Password</label>
-          <input
-            minLength="7"
-            type="password"
-            id="new-password"
-            ref={newPwdRef}
-          />
-        </div>
-        <div className={classes.action}>
-          {!isLoading && <button>Change Password</button>}
-          {isLoading && <LoadingSpinner />}
-        </div>
-      </form>
-    </Fragment>
+    <form className={classes.form} onSubmit={submitHandler}>
+      <div className={classes.control}>
+        <label htmlFor="new-password">New Password</label>
+        <input
+          minLength="7"
+          type="password"
+          id="new-password"
+          ref={newPwdRef}
+        />
+      </div>
+      <div className={classes.action}>
+        {!isLoading && <button>Change Password</button>}
+        {isLoading && <LoadingSpinner />}
+      </div>
+    </form>
   );
 };
 

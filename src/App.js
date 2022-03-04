@@ -8,9 +8,7 @@ import HomePage from "./pages/HomePage";
 import { authActions } from "./store/auth-slice";
 
 const AuthPage = React.lazy(() => import("./pages/AuthPage"));
-const UserProfile = React.lazy(() =>
-  import("./components/Profile/UserProfile")
-);
+const ProfilePage = React.lazy(() => import("./pages/ProfilePage"));
 
 let timeoutId;
 
@@ -46,7 +44,7 @@ function App() {
             path="/profile"
             element={
               isLoggedIn ? (
-                <UserProfile />
+                <ProfilePage />
               ) : (
                 <Navigate to="/auth" replace={true} />
               )
